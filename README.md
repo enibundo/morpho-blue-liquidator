@@ -17,6 +17,8 @@ InterestingWallets = []
 For each block b: 
   For each known oracle o:
      If o's price is updated in b:
+        Update Known Price in Database
+
         For each market m who's oracle is o:
           For each position p of market m:
             InterestingWallets.push(p.wallet, m.id)
@@ -45,6 +47,7 @@ We will create a minimum database to store current state of blockchain indexing.
 - marketId: id
 - collateralAmount: number
 - borrowAmount: number
+- wallet: string
 
 #### Liquidator Logs
 - indexedDate: datetime
