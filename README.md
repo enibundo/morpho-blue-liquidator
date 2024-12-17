@@ -1,6 +1,13 @@
 In this repo I will implement a solution for the Morpho's take home assignment for their Senior Software engineer position:
 https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb24915add46af3209aaf86?pvs=73
 
+## TOC
+
+1. General Idea
+2. Model
+3. Run
+4. Improvements
+
 ## General Idea
 
 I will go for a naive solution (to respect the 5h limit timebox). Improvement proposals are at the bottom of this page.
