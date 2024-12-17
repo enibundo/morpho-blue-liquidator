@@ -1,10 +1,8 @@
 import { readFile, writeFile } from "fs/promises";
-import dotenv from "dotenv";
+
 const databaseFile = "liquidator-database.json";
 
-dotenv.config();
-
-export type MorphoBlueMarket = {
+type MorphoBlueMarket = {
   id: string;
   base: string;
   quote: string;
@@ -13,7 +11,7 @@ export type MorphoBlueMarket = {
   lastOraclePrice: number | undefined;
 };
 
-export type MorphoPosition = {
+type MorphoPosition = {
   marketId: string;
   wallet: string;
   supplyShares: number;
@@ -21,7 +19,7 @@ export type MorphoPosition = {
   collateral: number;
 };
 
-export type LiquidatorDatabase = {
+type LiquidatorDatabase = {
   lastIndexedBlock: number;
   morphoBlueMarkets: _.Dictionary<MorphoBlueMarket>;
   morphoBluePositions: _.Dictionary<MorphoPosition>;
@@ -48,16 +46,15 @@ const initEmptyDatabase = () => {
   return emptyDatabase;
 };
 
-export const writeLiquidatorDatabase = (database: LiquidatorDatabase) => {
-  writeFile(databaseFile, JSON.stringify(database), () => {});
+export const writeLiquidatorDatabase = async (database: LiquidatorDatabase) => {
+  await writeFile(databaseFile, JSON.stringify(database));
 };
 
 export const readLiquidatorDatabase = async () => {
   try {
     console.log(`Reading database at ${databaseFile}`);
     const data = JSON.parse((await readFile(databaseFile)).toString());
-    console.log("Found smth");
-    console.log(data);
+    return data as unknown as LiquidatorDatabase;
   } catch (err) {
     console.log("Initializing database with empty values");
     const emptyDatabase = initEmptyDatabase();
@@ -65,5 +62,3 @@ export const readLiquidatorDatabase = async () => {
     return emptyDatabase;
   }
 };
-
-readLiquidatorDatabase();

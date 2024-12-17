@@ -1,7 +1,11 @@
 import dotenv from "dotenv";
-import { parseBlock } from "./blockchain-parser";
+import { readLiquidatorDatabase } from "./liquidatorDatabase";
 
 dotenv.config();
 
-const liquidatorConfig = readLiquidatorDatabase();
-parseBlock(FIRST_CREATE_MARKET_BLOCK);
+const start = async () => {
+  const db = await readLiquidatorDatabase();
+  console.log(db);
+};
+
+start();
