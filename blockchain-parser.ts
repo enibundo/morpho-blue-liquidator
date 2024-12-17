@@ -2,7 +2,10 @@ import _ from "lodash";
 import { getLogsOfBlockByTransaction, getTransactionsByHash } from "./alchemy";
 import { Log, TransactionResponse } from "alchemy-sdk";
 import {
+  MORPHO_BORROW_EVENT,
+  MORPHO_BORROW_RATE_UPDATE_EVENT,
   MORPHO_CREATE_MARKET_EVENT,
+  MORPHO_REPAY_EVENT,
   MORPHO_SUPPLY_COLLATERAL_EVENT,
   MORPHO_SUPPLY_EVENT,
   MORPHO_WITHDRAW_COLLATERAL_EVENT,
@@ -10,9 +13,10 @@ import {
 } from "./constants";
 import { decodeEventLog } from "viem";
 import { MorphoAbi } from "./contracts";
+import { MorphoEvent } from "./MorphoEvent";
 
 export const parseBlock = async (blockNumber: number) => {
-  console.log(`parsing block ${blockNumber}`);
+  console.log(`Parsing block ${blockNumber}`);
 
   const transactions = await getTransactionsByHash(blockNumber);
   const logsOfBlockByTransaction = await getLogsOfBlockByTransaction(
@@ -28,7 +32,9 @@ export const parseBlock = async (blockNumber: number) => {
     )
   );
 
-  console.log(morphoEvents);
+  console.log(morphoEvents[0]);
+
+  return morphoEvents as any as MorphoEvent[];
 };
 
 const parseMorphoEvents = (transaction: TransactionResponse, logs: Log[]) => {
@@ -54,6 +60,8 @@ const isMorphoEventTopic = (log: Log) => {
     MORPHO_SUPPLY_COLLATERAL_EVENT,
     MORPHO_WITHDRAW_COLLATERAL_EVENT,
     MORPHO_SUPPLY_EVENT,
+    MORPHO_BORROW_EVENT,
+    MORPHO_REPAY_EVENT,
     MORPHO_WITHDRAW_EVENT,
   ];
 

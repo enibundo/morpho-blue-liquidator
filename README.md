@@ -5,10 +5,10 @@ https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb
 
 I will go for a naive solution (to respect the 5h limit timebox). Improvement proposals are at the bottom of this page.
 
-I will keep track of minimum required events to liquidate positions.
+I will keep track of minimum required events to liquidate positions. Every time I receive one of these events I will check impacted positions
 The events we will be interested on are:
 
-1. Morpho events: `MarketCreated`, `Supply`, `Supply Collateral`, `Repay`, `Withdraw`, `WithdrawCollateral`
+1. Morpho events: `CreateMarket`, `Supply`, `Supply Collateral`, `Repay`, `Borrow`, `Withdraw`, `WithdrawCollateral`.
 2. Oracle events: `Price change`
 
 The rough lines of our algorithm are:
@@ -27,8 +27,8 @@ For each block b:
 
   For each transaction t of block b:
     For each log l of transaction t:
-      Update Database using l
       If l is any event of list 1:
+        Update Database using l
         InterestingWallets.push(l.walletBorrower)
 
   For each w in InterestingWallets:
@@ -90,4 +90,11 @@ export type MorphoPosition = {
 
 ## Improvements
 
-1. Instead of actively asking `position` every time we see a market/position change, we could track it ourselves on every event (we'd have to listen to other events like `AccrueInterest` as well)
+1. The current solution is in between a simple and complicated approach.
+   a. We could make it simpler by listening to `BorrowRateUpdate` event instead of all of the events.
+
+   b. We could make it more complete by listening to all events and calculating the position ourselves instead of fetching it (we'd have to listen to `AccrueInterest` event too)
+
+2. Use a real database instead of a json file (sqlite, redis, postgres, etc.)
+3. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits instead.
+4. Improve loops and data structures to iterate less in collections.

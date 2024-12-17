@@ -1,22 +1,25 @@
 import { readFile, writeFile } from "fs/promises";
+import { MorphoEvent } from "./MorphoEvent";
+import _ from "lodash";
 
 const databaseFile = "liquidator-database.json";
 
 type MorphoBlueMarket = {
-  id: string;
-  base: string;
-  quote: string;
-  oracle: string;
-  lltv: number;
-  lastOraclePrice: number | undefined;
+  id: `0x${string}`;
+  loanToken: `0x${string}`;
+  collateralToken: `0x${string}`;
+  oracle: `0x${string}`;
+  lltv: BigInt;
+  lastOraclePrice: BigInt | undefined;
 };
 
 type MorphoPosition = {
-  marketId: string;
-  wallet: string;
-  supplyShares: number;
-  borrowShares: number;
-  collateral: number;
+  marketId: `0x${string}`;
+  wallet: `0x${string}`;
+  supplyShares: BigInt;
+  borrowShares: BigInt;
+  collateral: BigInt;
+  atBlock: number;
 };
 
 type LiquidatorDatabase = {
@@ -61,4 +64,35 @@ export const readLiquidatorDatabase = async () => {
     writeLiquidatorDatabase(emptyDatabase);
     return emptyDatabase;
   }
+};
+
+export const updateLiquidatorDatabase = (
+  currentDatabase: LiquidatorDatabase,
+  blockNumber: number,
+  morphoEvents: MorphoEvent[]
+) => {
+  currentDatabase.lastIndexedBlock = blockNumber;
+
+  let walletsWithUpdatedPositions: `0x${string}`[] = [];
+
+  _.forEach(morphoEvents, (morphoEvent) => {
+    // update newly created markets
+    if (morphoEvent.eventName === "CreateMarket") {
+      const marketId = morphoEvent.args.id;
+      currentDatabase.morphoBlueMarkets[morphoEvent.args.id] = {
+        id: marketId,
+        lastOraclePrice: undefined,
+        ...morphoEvent.args.marketParams,
+      };
+    } else {
+      // track wallet with changed position
+      walletsWithUpdatedPositions.push(morphoEvent.args.onBehalf);
+    }
+  });
+
+  _.forEach(walletsWithUpdatedPositions, (wallet) => {
+    console.log(`Wallet ${wallet} has an updated position`);
+  });
+
+  return currentDatabase;
 };
