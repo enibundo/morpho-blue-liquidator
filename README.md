@@ -56,21 +56,21 @@ We will create a minimum database to store current state of blockchain indexing.
 
 ```
 export type MorphoBlueMarket = {
-  id: string;
-  loanToken: string;
-  collateralToken: string;
-  oracle: string;
-  irm: string;
-  lltv: number;
-  lastOraclePrice: number | undefined;
+  id: `0x${string}`;
+  loanToken: `0x${string}`;
+  collateralToken: `0x${string}`;
+  oracle: `0x${string}`;
+  irm: `0x${string}`;
+  lltv: bigint;
+  lastOraclePrice: bigint | undefined;
 };
 
 export type MorphoPosition = {
-  marketId: string;
-  wallet: string;
-  supplyShares: number;
-  borrowShares: number;
-  collateral: number;
+  marketId: `0x${string}`;
+  wallet: `0x${string}`;
+  supplyShares: bigint;
+  borrowShares: bigint;
+  collateral: bigint;
 };
 ```
 
@@ -78,23 +78,27 @@ export type MorphoPosition = {
 
 1. Initialise your `.env` with the right variables (depending on the indexed chain)
 
-`ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY`
-`MORPHO_CONTRACT_ADDRESS=0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb`
-`MORPHO_START_BLOCK=18883124`
+```
+ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY
+MORPHO_CONTRACT_ADDRESS=0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb
+MORPHO_START_BLOCK=18883124
+```
 
 2. Run
 
-`npm i`
-
-`npx ts-node index.ts`
+```
+npm i
+npx ts-node src/index.ts
+```
 
 ## Improvements
 
 1. The current solution is in between a simple and complicated approach.
-   a. We could make it simpler by listening to `BorrowRateUpdate` event instead of all of the events.
+   a. We could make it simpler by listening to `BorrowRateUpdate` event (instead of all of the events) and update position actively.
 
-   b. We could make it more complete by listening to all events and calculating the position ourselves instead of fetching it (we'd have to listen to `AccrueInterest` event too)
+   b. Instead of polling position actively we could eventually calculate it on our side since we listen to all events.
 
-2. Use a real database instead of a json file (sqlite, redis, postgres, etc.)
-3. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits instead.
-4. Improve loops and data structures to iterate less in collections.
+2. Use a real database instead of a json file (sqlite, redis, postgres, etc.) and trace log of upgrades + last state
+3. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits this way.
+4. Actually remove `lodash` and use `forEach` or other native functions.
+5. Improve loops and data structures to iterate less in collections.

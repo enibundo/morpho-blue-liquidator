@@ -4,6 +4,8 @@ import {
   updateLiquidatorDatabase,
 } from "./liquidatorDatabase";
 import { parseBlock } from "./blockchain-parser";
+import { readPositionOfWallet } from "./blockchain-fetching";
+import _ from "lodash";
 
 dotenv.config();
 
@@ -15,7 +17,15 @@ const start = async () => {
 
   while (true) {
     const morphoEvents = await parseBlock(currentBlock);
-    db = await updateLiquidatorDatabase(db, currentBlock, morphoEvents);
+    const updateResult = await updateLiquidatorDatabase(
+      db,
+      currentBlock,
+      morphoEvents,
+      ({ wallet, marketId }) => {
+        return readPositionOfWallet(wallet, marketId);
+      }
+    );
+    db = updateResult.currentDatabase;
 
     currentBlock++;
     await new Promise((resolve) => setTimeout(resolve, 15_000));
@@ -45,4 +55,4 @@ const start = async () => {
   //parseBlock(21422989);
 };
 
-start();
+// start();

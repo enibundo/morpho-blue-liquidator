@@ -8,7 +8,7 @@ export type MorphoEvent =
           collateralToken: `0x{string}`;
           oracle: `0x${string}`;
           irm: `0x${string}`;
-          lltv: BigInt;
+          lltv: bigint;
         };
       };
     }
@@ -18,7 +18,7 @@ export type MorphoEvent =
         id: `0x${string}`;
         caller: `0x{string}`;
         onBehalf: `0x{string}`;
-        assets: BigInt;
+        assets: bigint;
       };
     }
   | {
@@ -28,7 +28,7 @@ export type MorphoEvent =
         onBehalf: `0x${string}`;
         receiver: `0x${string}`;
         caller: `0x${string}`;
-        assets: BigInt;
+        assets: bigint;
       };
     }
   | {
@@ -37,8 +37,8 @@ export type MorphoEvent =
         id: `0x${string}`;
         caller: `0x${string}`;
         onBehalf: `0x${string}`;
-        assets: BigInt;
-        shares: BigInt;
+        assets: bigint;
+        shares: bigint;
       };
     }
   | {
@@ -48,8 +48,8 @@ export type MorphoEvent =
         onBehalf: `0x${string}`;
         receiver: `0x${string}`;
         caller: `0x${string}`;
-        assets: BigInt;
-        shares: BigInt;
+        assets: bigint;
+        shares: bigint;
       };
     }
   | {
@@ -58,8 +58,8 @@ export type MorphoEvent =
         id: `0x${string}`;
         caller: `0x${string}`;
         onBehalf: `0x${string}`;
-        assets: BigInt;
-        shares: BigInt;
+        assets: bigint;
+        shares: bigint;
       };
     }
   | {
@@ -69,7 +69,7 @@ export type MorphoEvent =
         onBehalf: `0x${string}`;
         receiver: `0x${string}`;
         caller: `0x${string}`;
-        assets: BigInt;
-        shares: BigInt;
+        assets: bigint;
+        shares: bigint;
       };
     };

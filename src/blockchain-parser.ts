@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { getLogsOfBlockByTransaction, getTransactionsByHash } from "./alchemy";
+import { getLogsOfBlockByTransaction, getTransactionsByHash } from "./blockchain-fetching";
 import { Log, TransactionResponse } from "alchemy-sdk";
 import {
   MORPHO_BORROW_EVENT,
