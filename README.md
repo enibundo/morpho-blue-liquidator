@@ -80,21 +80,21 @@ We will create a minimum database to store current state of blockchain indexing.
 
 ```
 export type MorphoBlueMarket = {
-id: `0x${string}`;
-loanToken: `0x${string}`;
-collateralToken: `0x${string}`;
-oracle: `0x${string}`;
-irm: `0x${string}`;
-lltv: bigint;
-lastOraclePrice: bigint | undefined;
+  id: `0x${string}`;
+  loanToken: `0x${string}`;
+  collateralToken: `0x${string}`;
+  oracle: `0x${string}`;
+  irm: `0x${string}`;
+  lltv: bigint;
+  lastOraclePrice: bigint | undefined;
 };
 
 export type MorphoPosition = {
-marketId: `0x${string}`;
-wallet: `0x${string}`;
-supplyShares: bigint;
-borrowShares: bigint;
-collateral: bigint;
+  marketId: `0x${string}`;
+  wallet: `0x${string}`;
+  supplyShares: bigint;
+  borrowShares: bigint;
+  collateral: bigint;
 };
 
 ```
