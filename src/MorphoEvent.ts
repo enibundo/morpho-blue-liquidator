@@ -1,4 +1,13 @@
-export type MorphoEvent =
+export type LiquidationOpportunityTriggerEvent =
+  | OraclePriceChangeEvent
+  | MorphoStateChange;
+
+export type OraclePriceChangeEvent = {
+  address: `0x${string}`;
+  newPrice: bigint;
+};
+
+export type MorphoStateChange =
   | {
       eventName: "CreateMarket";
       args: {

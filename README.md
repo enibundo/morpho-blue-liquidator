@@ -123,14 +123,16 @@ npx ts-node src/index.ts
 
 ## Improvements
 
-1. Due to the timebox, the state of the current solution is in between a simple and complicated approach. We could improve this in two different ways.
+1. Implement `//todo:` for `liquidatePosition` function and `readPriceOfOracle`
+2. Use morpho blue's subgraph (`TheGraph`) for indexing.
+3. Due to the timebox, the state of the current solution is in between a simple and complicated approach. We could improve this in two different ways.
 
    a. We could make it simpler by listening to `BorrowRateUpdate` event (instead of all of the events) and update position actively.
 
    b. Instead of polling position actively we could eventually calculate it on our side since we listen to all events.
 
-2. This has been tested only manually. _Should_ add unit tests for main loop, liquidation logic, parsing/encoding of data.
-3. Use a real database instead of a json file (sqlite, redis, postgres, etc.) and trace log of upgrades + last state
-4. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits this way.
-5. Actually remove `lodash` and use `forEach` or other native functions.
-6. Improve loops and data structures to iterate less in collections.
+4. This has been tested only manually. _Should_ add unit tests for main loop, liquidation logic, parsing/encoding of data.
+5. Use a real database instead of a json file (sqlite, redis, postgres, etc.) and trace log of upgrades + last state
+6. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits this way.
+7. Actually remove `lodash` and use `forEach` or other native functions.
+8. Improve loops and data structures to iterate less in collections.

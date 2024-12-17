@@ -1,9 +1,11 @@
 import _ from "lodash";
-import { getLogsOfBlockByTransaction, getTransactionsByHash } from "./blockchain-fetching";
+import {
+  getLogsOfBlockByTransaction,
+  getTransactionsByHash,
+} from "./blockchain-fetching";
 import { Log, TransactionResponse } from "alchemy-sdk";
 import {
   MORPHO_BORROW_EVENT,
-  MORPHO_BORROW_RATE_UPDATE_EVENT,
   MORPHO_CREATE_MARKET_EVENT,
   MORPHO_REPAY_EVENT,
   MORPHO_SUPPLY_COLLATERAL_EVENT,
@@ -13,7 +15,7 @@ import {
 } from "./constants";
 import { decodeEventLog } from "viem";
 import { MorphoAbi } from "./contracts";
-import { MorphoEvent } from "./MorphoEvent";
+import { MorphoStateChange } from "./MorphoEvent";
 
 export const parseBlock = async (blockNumber: number) => {
   console.log(`Parsing block ${blockNumber}`);
@@ -32,9 +34,7 @@ export const parseBlock = async (blockNumber: number) => {
     )
   );
 
-  console.log(morphoEvents[0]);
-
-  return morphoEvents as any as MorphoEvent[];
+  return morphoEvents as any as MorphoStateChange[];
 };
 
 const parseMorphoEvents = (transaction: TransactionResponse, logs: Log[]) => {

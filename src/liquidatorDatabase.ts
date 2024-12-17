@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "fs/promises";
-import { MorphoEvent } from "./MorphoEvent";
+import { MorphoStateChange } from "./MorphoEvent";
 import _ from "lodash";
 
 const databaseFile = "liquidator-database.json";
@@ -67,7 +67,7 @@ export const readLiquidatorDatabase = async () => {
 export const updateLiquidatorDatabase = async (
   currentDatabase: LiquidatorDatabase,
   blockNumber: number,
-  morphoEvents: MorphoEvent[],
+  morphoEvents: MorphoStateChange[],
   getLastPositionOfWallet: ({
     wallet,
     marketId,
@@ -80,6 +80,8 @@ export const updateLiquidatorDatabase = async (
     collateral: bigint;
   }>
 ) => {
+  const knownOracles = getListOfOraclesFromDatabase(currentDatabase);
+
   currentDatabase.lastIndexedBlock = blockNumber;
 
   let walletsWithUpdatedPositions: Record<
@@ -138,4 +140,10 @@ export const updateLiquidatorDatabase = async (
   writeLiquidatorDatabase(currentDatabase);
 
   return { currentDatabase, walletsWithUpdatedPositions };
+};
+
+export const getListOfOraclesFromDatabase = (db: LiquidatorDatabase) => {
+  return Array.from(
+    new Set(_.map(db.morphoBlueMarkets, (market) => market.oracle))
+  );
 };

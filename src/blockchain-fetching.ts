@@ -78,5 +78,10 @@ export const readPositionOfWallet = async (
   const result = { supplyShares, borrowShares, collateral };
 
   console.log(result);
+
   return result;
+};
+
+export const readPriceOfOracle = async (oracleAddress: `0x${string}`) => {
+  // todo: implement read price of oracle using oracle ABI + price function
 };
