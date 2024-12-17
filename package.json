@@ -1,0 +1,22 @@
+{
+  "name": "morpho-blue-liquidator",
+  "version": "1.0.0",
+  "description": "In this repo I will implement a solution for the Morpho's take home assignment for their Senior Software engineer position:  https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb24915add46af3209aaf86?pvs=73",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alchemy-sdk": "^3.5.0",
+    "dotenv": "^16.4.7",
+    "lodash": "^4.17.21",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.13",
+    "gts": "^6.0.2"
+  }
+}
