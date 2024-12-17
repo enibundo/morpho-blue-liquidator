@@ -8,7 +8,7 @@ I will go for a naive solution (to respect the 5h limit timebox). Improvement pr
 I will keep track of minimum required events to liquidate positions.
 The events we will be interested on are:
 
-1. Morpho events: `MarketCreated`, `Supply`, `Supply Collateral`, `Repay`, `Withdraw`
+1. Morpho events: `MarketCreated`, `Supply`, `Supply Collateral`, `Repay`, `Withdraw`, `WithdrawCollateral`
 2. Oracle events: `Price change`
 
 The rough lines of our algorithm are:
@@ -54,35 +54,34 @@ supplyShares uint256, borrowShares uint128, collateral uint128
 
 We will create a minimum database to store current state of blockchain indexing.
 
-#### MorphoMarket
+```
+export type MorphoBlueMarket = {
+  id: string;
+  loanToken: string;
+  collateralToken: string;
+  oracle: string;
+  irm: string;
+  lltv: number;
+  lastOraclePrice: number | undefined;
+};
 
-- id: string
-- base: string
-- quote: string
-- oracle: string
-- lastOraclePrice: number | undefined
-- lltv: number
-
-#### MorphoPosition
-
-- marketId: id
-- supplyShares: number
-- borrowShares: number
-- collateral: number
-- wallet: string
-
-#### Liquidator Logs
-
-- indexedDate: datetime
-- action: string (`index block`, `liquidate position`)
-- data: json/string
+export type MorphoPosition = {
+  marketId: string;
+  wallet: string;
+  supplyShares: number;
+  borrowShares: number;
+  collateral: number;
+};
+```
 
 ## Running
 
 initialise your `.env`
+
 `ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY`
 
 `npm i`
+
 `npx ts-node index.ts`
 
 ## Improvements
