@@ -95,6 +95,7 @@ npx ts-node src/index.ts
 ## Improvements
 
 1. The current solution is in between a simple and complicated approach.
+
    a. We could make it simpler by listening to `BorrowRateUpdate` event (instead of all of the events) and update position actively.
 
    b. Instead of polling position actively we could eventually calculate it on our side since we listen to all events.
