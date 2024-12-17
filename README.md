@@ -76,9 +76,13 @@ export type MorphoPosition = {
 
 ## Running
 
-initialise your `.env`
+1. Initialise your `.env` with the right variables (depending on the indexed chain)
 
 `ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY`
+`MORPHO_CONTRACT_ADDRESS=0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb`
+`MORPHO_START_BLOCK=18883124`
+
+2. Run
 
 `npm i`
 
