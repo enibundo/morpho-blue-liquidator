@@ -4,9 +4,9 @@ https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb
 ## TOC
 
 1. [General Idea](#general-idea)
-2. Model
-3. Run
-4. Improvements
+2. [Model](#model)
+3. [Running](#running)
+4. [Improvements](#improvements)
 
 ## General Idea
 
