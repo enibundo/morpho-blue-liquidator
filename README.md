@@ -76,8 +76,7 @@ export const isLiquidationOpportunity = (
 
 We will create a minimum database to store current state of blockchain indexing.
 
-````
-
+```
 export type MorphoBlueMarket = {
 id: `0x${string}`;
 loanToken: `0x${string}`;
@@ -133,5 +132,3 @@ npx ts-node src/index.ts
 4. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits this way.
 5. Actually remove `lodash` and use `forEach` or other native functions.
 6. Improve loops and data structures to iterate less in collections.
-```
-````
