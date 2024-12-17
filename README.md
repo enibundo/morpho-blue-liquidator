@@ -60,14 +60,15 @@ We will create a minimum database to store current state of blockchain indexing.
 - base: string
 - quote: string
 - oracle: string
-- lastOraclePrice: number
+- lastOraclePrice: number | undefined
 - lltv: number
 
 #### MorphoPosition
 
 - marketId: id
-- collateralAmount: number
-- borrowAmount: number
+- supplyShares: number
+- borrowShares: number
+- collateral: number
 - wallet: string
 
 #### Liquidator Logs
