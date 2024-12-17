@@ -15,4 +15,5 @@ export const parseBlock = async (blockNumber: number) => {
   console.log(
     `fetched ${_.values(logsOfBlockByTransaction).length} logs in total`
   );
+  
 };
