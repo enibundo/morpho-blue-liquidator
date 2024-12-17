@@ -61,5 +61,8 @@ We will create a minimum database to store current state of blockchain indexing.
 
 ## Running
 
+initialise your `.env`
+`ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY`
+
 `npm i`
 `npx ts-node index.ts`
