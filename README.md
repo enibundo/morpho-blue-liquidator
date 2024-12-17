@@ -57,28 +57,43 @@ supplyShares uint256, borrowShares uint128, collateral uint128
   collateral   uint128 :  1100000000000000
 ```
 
+Liquidation opportunity is calculated as per the docs:
+
+```
+export const isLiquidationOpportunity = (
+  market: MorphoBlueMarket,
+  position: MorphoBluePosition,
+  oraclePrice: bigint
+) => {
+  const positionsLtv =
+    (position.borrowShares * oraclePrice) /
+    (position.collateral * BigInt(10) ** BigInt(36));
+```
+
 ## Model
 
 We will create a minimum database to store current state of blockchain indexing.
 
-```
+````
+
 export type MorphoBlueMarket = {
-  id: `0x${string}`;
-  loanToken: `0x${string}`;
-  collateralToken: `0x${string}`;
-  oracle: `0x${string}`;
-  irm: `0x${string}`;
-  lltv: bigint;
-  lastOraclePrice: bigint | undefined;
+id: `0x${string}`;
+loanToken: `0x${string}`;
+collateralToken: `0x${string}`;
+oracle: `0x${string}`;
+irm: `0x${string}`;
+lltv: bigint;
+lastOraclePrice: bigint | undefined;
 };
 
 export type MorphoPosition = {
-  marketId: `0x${string}`;
-  wallet: `0x${string}`;
-  supplyShares: bigint;
-  borrowShares: bigint;
-  collateral: bigint;
+marketId: `0x${string}`;
+wallet: `0x${string}`;
+supplyShares: bigint;
+borrowShares: bigint;
+collateral: bigint;
 };
+
 ```
 
 ## Running
@@ -86,17 +101,21 @@ export type MorphoPosition = {
 1. Initialise your `.env` with the right variables (depending on the indexed chain)
 
 ```
+
 ALCHEMY_NODE_API_KEY=YOUR-ALCHEMY-API-KEY
 MORPHO_CONTRACT_ADDRESS=0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb
 MORPHO_START_BLOCK=18883124
 CHAIN_ID=1
+
 ```
 
 2. Run
 
 ```
+
 npm i
 npx ts-node src/index.ts
+
 ```
 
 ## Improvements
@@ -112,3 +131,5 @@ npx ts-node src/index.ts
 4. Don't read logs of blocks that have no interesting transactions, we can save alchemy credits this way.
 5. Actually remove `lodash` and use `forEach` or other native functions.
 6. Improve loops and data structures to iterate less in collections.
+```
+````
