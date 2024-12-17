@@ -11,7 +11,7 @@ https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb
 ## General Idea
 
 I will go for a naive solution (to respect the 5h limit timebox).
-:point_right: Improvement proposals are at the bottom of this page.
+👉 Improvement proposals are at the bottom of this page.
 
 I will keep track of minimum required events to liquidate positions. Every time I receive one of these events I will check impacted positions
 The events we will be interested on are:
