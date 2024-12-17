@@ -26,6 +26,7 @@ The rough lines of our algorithm are:
 InterestingWallets = []
 
 For each block b:
+  // see for any oracle price change
   For each known oracle o:
      If o's price is updated in b:
         Update lastOraclePrice for market m of oracle o in Database
@@ -34,9 +35,10 @@ For each block b:
           For each position p of market m:
             InterestingWallets.push(p.wallet, m.id)
 
+  // see for any activity that could introduce liquidation opportunity
   For each transaction t of block b:
     For each log l of transaction t:
-      If l is any event of list 1:
+      If l is any event of interesting morpho events (list 1 above):
         Update Database using l
         InterestingWallets.push(l.walletBorrower)
 
