@@ -1,6 +1,3 @@
-In this repo I will implement a solution for the Morpho's take home assignment for their Senior Software engineer position:
-https://morpho-labs.notion.site/Liquidation-Bot-Senior-Web3-Engineer-f40d1d078bb24915add46af3209aaf86?pvs=73
-
 ## TOC
 
 1. [General Idea](#general-idea)
